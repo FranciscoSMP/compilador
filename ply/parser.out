@@ -1,0 +1,2992 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> unidad_compilacion
+Rule 1     unidad_compilacion -> declaracion_externa
+Rule 2     unidad_compilacion -> unidad_compilacion declaracion_externa
+Rule 3     declaracion_externa -> definicion_funcion
+Rule 4     declaracion_externa -> declaracion_global
+Rule 5     declaracion_global -> variable_declaracion
+Rule 6     declaracion_global -> funcion_prototipo_declaracion
+Rule 7     definicion_funcion -> encabezado_def_funcion cuerpo_funcion
+Rule 8     encabezado_def_funcion -> tipo_retorno ID LPAREN def_parametros RPAREN
+Rule 9     tipo_retorno -> tipo
+Rule 10    tipo_retorno -> VOID
+Rule 11    tipo -> INT
+Rule 12    tipo -> CHAR
+Rule 13    def_parametros -> lista_def_parametros
+Rule 14    def_parametros -> VOID
+Rule 15    lista_def_parametros -> lista_def_parametros COMMA tipo ID
+Rule 16    lista_def_parametros -> tipo ID
+Rule 17    cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+Rule 18    opcional_declaraciones_locales -> declaraciones_locales_list
+Rule 19    opcional_declaraciones_locales -> empty
+Rule 20    declaraciones_locales_list -> declaraciones_locales_list variable_declaracion
+Rule 21    declaraciones_locales_list -> variable_declaracion
+Rule 22    variable_declaracion -> tipo lista_simple_identificadores SEMICOLON
+Rule 23    lista_simple_identificadores -> lista_simple_identificadores COMMA ID
+Rule 24    lista_simple_identificadores -> ID
+Rule 25    funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON
+Rule 26    declaracion_parametros -> lista_decl_parametros
+Rule 27    declaracion_parametros -> lista_decl_parametros COMMA PUNTOS
+Rule 28    declaracion_parametros -> VOID
+Rule 29    lista_decl_parametros -> lista_decl_parametros COMMA especificacion_decl_parametros
+Rule 30    lista_decl_parametros -> especificacion_decl_parametros
+Rule 31    especificacion_decl_parametros -> tipo ID
+Rule 32    especificacion_decl_parametros -> CHAR TIMES ID
+Rule 33    opcional_lista_statements -> statement_list
+Rule 34    opcional_lista_statements -> empty
+Rule 35    statement_list -> statement_list statement
+Rule 36    statement_list -> statement
+Rule 37    statement -> expression_statement
+Rule 38    statement -> return_statement
+Rule 39    statement -> while_statement
+Rule 40    statement -> if_statement
+Rule 41    statement -> block_statement
+Rule 42    expression_statement -> expresion SEMICOLON
+Rule 43    return_statement -> RETURN SEMICOLON
+Rule 44    return_statement -> RETURN expresion SEMICOLON
+Rule 45    while_statement -> WHILE LPAREN expresion RPAREN statement
+Rule 46    if_statement -> IF LPAREN expresion RPAREN statement
+Rule 47    if_statement -> IF LPAREN expresion RPAREN statement ELSE statement
+Rule 48    block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+Rule 49    expresion -> ID ASSIGN expresion
+Rule 50    expresion -> expresion_igualdad
+Rule 51    expresion_igualdad -> expresion_relacional EQ expresion_relacional
+Rule 52    expresion_igualdad -> expresion_relacional NEQ expresion_relacional
+Rule 53    expresion_igualdad -> expresion_relacional
+Rule 54    expresion_relacional -> expresion_simple LT expresion_simple
+Rule 55    expresion_relacional -> expresion_simple LE expresion_simple
+Rule 56    expresion_relacional -> expresion_simple GT expresion_simple
+Rule 57    expresion_relacional -> expresion_simple GE expresion_simple
+Rule 58    expresion_relacional -> expresion_simple
+Rule 59    expresion_simple -> expresion_simple PLUS term
+Rule 60    expresion_simple -> expresion_simple MINUS term
+Rule 61    expresion_simple -> term
+Rule 62    term -> term TIMES factor
+Rule 63    term -> term DIVIDE factor
+Rule 64    term -> factor
+Rule 65    factor -> constant
+Rule 66    factor -> ID
+Rule 67    factor -> LPAREN expresion RPAREN
+Rule 68    factor -> PLUS factor
+Rule 69    factor -> MINUS factor
+Rule 70    factor -> callable_name LPAREN lista_expresiones RPAREN
+Rule 71    factor -> callable_name LPAREN RPAREN
+Rule 72    callable_name -> ID
+Rule 73    callable_name -> PRINTF
+Rule 74    callable_name -> SCANF
+Rule 75    constant -> STRING_CONSTANT
+Rule 76    constant -> INTEGER_CONSTANT
+Rule 77    constant -> CHAR_CONSTANT
+Rule 78    lista_expresiones -> lista_expresiones COMMA expresion
+Rule 79    lista_expresiones -> expresion
+Rule 80    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 49
+CHAR                 : 12 32
+CHAR_CONSTANT        : 77
+COMMA                : 15 23 27 29 78
+DIVIDE               : 63
+ELSE                 : 47
+EQ                   : 51
+GE                   : 57
+GT                   : 56
+ID                   : 8 15 16 23 24 25 31 32 49 66 72
+IF                   : 46 47
+INT                  : 11
+INTEGER_CONSTANT     : 76
+LBRACE               : 17 48
+LE                   : 55
+LPAREN               : 8 25 45 46 47 67 70 71
+LT                   : 54
+MINUS                : 60 69
+NEQ                  : 52
+PLUS                 : 59 68
+PRINTF               : 73
+PUNTOS               : 27
+RBRACE               : 17 48
+RETURN               : 43 44
+RPAREN               : 8 25 45 46 47 67 70 71
+SCANF                : 74
+SEMICOLON            : 22 25 42 43 44
+STRING_CONSTANT      : 75
+TIMES                : 32 62
+VOID                 : 10 14 28
+WHILE                : 45
+error                : 
+
+Nonterminals, with rules where they appear
+
+block_statement      : 41
+callable_name        : 70 71
+constant             : 65
+cuerpo_funcion       : 7
+declaracion_externa  : 1 2
+declaracion_global   : 4
+declaracion_parametros : 25
+declaraciones_locales_list : 18 20
+def_parametros       : 8
+definicion_funcion   : 3
+empty                : 19 34
+encabezado_def_funcion : 7
+especificacion_decl_parametros : 29 30
+expresion            : 42 44 45 46 47 49 67 78 79
+expresion_igualdad   : 50
+expresion_relacional : 51 51 52 52 53
+expresion_simple     : 54 54 55 55 56 56 57 57 58 59 60
+expression_statement : 37
+factor               : 62 63 64 68 69
+funcion_prototipo_declaracion : 6
+if_statement         : 40
+lista_decl_parametros : 26 27 29
+lista_def_parametros : 13 15
+lista_expresiones    : 70 78
+lista_simple_identificadores : 22 23
+opcional_declaraciones_locales : 17 48
+opcional_lista_statements : 17 48
+return_statement     : 38
+statement            : 35 36 45 46 47 47
+statement_list       : 33 35
+term                 : 59 60 61 62 63
+tipo                 : 9 15 16 22 31
+tipo_retorno         : 8 25
+unidad_compilacion   : 2 0
+variable_declaracion : 5 20 21
+while_statement      : 39
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . unidad_compilacion
+    (1) unidad_compilacion -> . declaracion_externa
+    (2) unidad_compilacion -> . unidad_compilacion declaracion_externa
+    (3) declaracion_externa -> . definicion_funcion
+    (4) declaracion_externa -> . declaracion_global
+    (7) definicion_funcion -> . encabezado_def_funcion cuerpo_funcion
+    (5) declaracion_global -> . variable_declaracion
+    (6) declaracion_global -> . funcion_prototipo_declaracion
+    (8) encabezado_def_funcion -> . tipo_retorno ID LPAREN def_parametros RPAREN
+    (22) variable_declaracion -> . tipo lista_simple_identificadores SEMICOLON
+    (25) funcion_prototipo_declaracion -> . tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON
+    (9) tipo_retorno -> . tipo
+    (10) tipo_retorno -> . VOID
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    VOID            shift and go to state 10
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+
+    unidad_compilacion             shift and go to state 1
+    declaracion_externa            shift and go to state 2
+    definicion_funcion             shift and go to state 3
+    declaracion_global             shift and go to state 4
+    encabezado_def_funcion         shift and go to state 5
+    variable_declaracion           shift and go to state 6
+    funcion_prototipo_declaracion  shift and go to state 7
+    tipo_retorno                   shift and go to state 8
+    tipo                           shift and go to state 9
+
+state 1
+
+    (0) S' -> unidad_compilacion .
+    (2) unidad_compilacion -> unidad_compilacion . declaracion_externa
+    (3) declaracion_externa -> . definicion_funcion
+    (4) declaracion_externa -> . declaracion_global
+    (7) definicion_funcion -> . encabezado_def_funcion cuerpo_funcion
+    (5) declaracion_global -> . variable_declaracion
+    (6) declaracion_global -> . funcion_prototipo_declaracion
+    (8) encabezado_def_funcion -> . tipo_retorno ID LPAREN def_parametros RPAREN
+    (22) variable_declaracion -> . tipo lista_simple_identificadores SEMICOLON
+    (25) funcion_prototipo_declaracion -> . tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON
+    (9) tipo_retorno -> . tipo
+    (10) tipo_retorno -> . VOID
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    VOID            shift and go to state 10
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+
+    declaracion_externa            shift and go to state 13
+    definicion_funcion             shift and go to state 3
+    declaracion_global             shift and go to state 4
+    encabezado_def_funcion         shift and go to state 5
+    variable_declaracion           shift and go to state 6
+    funcion_prototipo_declaracion  shift and go to state 7
+    tipo_retorno                   shift and go to state 8
+    tipo                           shift and go to state 9
+
+state 2
+
+    (1) unidad_compilacion -> declaracion_externa .
+
+    VOID            reduce using rule 1 (unidad_compilacion -> declaracion_externa .)
+    INT             reduce using rule 1 (unidad_compilacion -> declaracion_externa .)
+    CHAR            reduce using rule 1 (unidad_compilacion -> declaracion_externa .)
+    $end            reduce using rule 1 (unidad_compilacion -> declaracion_externa .)
+
+
+state 3
+
+    (3) declaracion_externa -> definicion_funcion .
+
+    VOID            reduce using rule 3 (declaracion_externa -> definicion_funcion .)
+    INT             reduce using rule 3 (declaracion_externa -> definicion_funcion .)
+    CHAR            reduce using rule 3 (declaracion_externa -> definicion_funcion .)
+    $end            reduce using rule 3 (declaracion_externa -> definicion_funcion .)
+
+
+state 4
+
+    (4) declaracion_externa -> declaracion_global .
+
+    VOID            reduce using rule 4 (declaracion_externa -> declaracion_global .)
+    INT             reduce using rule 4 (declaracion_externa -> declaracion_global .)
+    CHAR            reduce using rule 4 (declaracion_externa -> declaracion_global .)
+    $end            reduce using rule 4 (declaracion_externa -> declaracion_global .)
+
+
+state 5
+
+    (7) definicion_funcion -> encabezado_def_funcion . cuerpo_funcion
+    (17) cuerpo_funcion -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+
+    LBRACE          shift and go to state 15
+
+    cuerpo_funcion                 shift and go to state 14
+
+state 6
+
+    (5) declaracion_global -> variable_declaracion .
+
+    VOID            reduce using rule 5 (declaracion_global -> variable_declaracion .)
+    INT             reduce using rule 5 (declaracion_global -> variable_declaracion .)
+    CHAR            reduce using rule 5 (declaracion_global -> variable_declaracion .)
+    $end            reduce using rule 5 (declaracion_global -> variable_declaracion .)
+
+
+state 7
+
+    (6) declaracion_global -> funcion_prototipo_declaracion .
+
+    VOID            reduce using rule 6 (declaracion_global -> funcion_prototipo_declaracion .)
+    INT             reduce using rule 6 (declaracion_global -> funcion_prototipo_declaracion .)
+    CHAR            reduce using rule 6 (declaracion_global -> funcion_prototipo_declaracion .)
+    $end            reduce using rule 6 (declaracion_global -> funcion_prototipo_declaracion .)
+
+
+state 8
+
+    (8) encabezado_def_funcion -> tipo_retorno . ID LPAREN def_parametros RPAREN
+    (25) funcion_prototipo_declaracion -> tipo_retorno . ID LPAREN declaracion_parametros RPAREN SEMICOLON
+
+    ID              shift and go to state 16
+
+
+state 9
+
+    (22) variable_declaracion -> tipo . lista_simple_identificadores SEMICOLON
+    (9) tipo_retorno -> tipo .
+    (23) lista_simple_identificadores -> . lista_simple_identificadores COMMA ID
+    (24) lista_simple_identificadores -> . ID
+
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 18
+
+  ! ID              [ reduce using rule 9 (tipo_retorno -> tipo .) ]
+
+    lista_simple_identificadores   shift and go to state 17
+
+state 10
+
+    (10) tipo_retorno -> VOID .
+
+    ID              reduce using rule 10 (tipo_retorno -> VOID .)
+
+
+state 11
+
+    (11) tipo -> INT .
+
+    ID              reduce using rule 11 (tipo -> INT .)
+
+
+state 12
+
+    (12) tipo -> CHAR .
+
+    ID              reduce using rule 12 (tipo -> CHAR .)
+
+
+state 13
+
+    (2) unidad_compilacion -> unidad_compilacion declaracion_externa .
+
+    VOID            reduce using rule 2 (unidad_compilacion -> unidad_compilacion declaracion_externa .)
+    INT             reduce using rule 2 (unidad_compilacion -> unidad_compilacion declaracion_externa .)
+    CHAR            reduce using rule 2 (unidad_compilacion -> unidad_compilacion declaracion_externa .)
+    $end            reduce using rule 2 (unidad_compilacion -> unidad_compilacion declaracion_externa .)
+
+
+state 14
+
+    (7) definicion_funcion -> encabezado_def_funcion cuerpo_funcion .
+
+    VOID            reduce using rule 7 (definicion_funcion -> encabezado_def_funcion cuerpo_funcion .)
+    INT             reduce using rule 7 (definicion_funcion -> encabezado_def_funcion cuerpo_funcion .)
+    CHAR            reduce using rule 7 (definicion_funcion -> encabezado_def_funcion cuerpo_funcion .)
+    $end            reduce using rule 7 (definicion_funcion -> encabezado_def_funcion cuerpo_funcion .)
+
+
+state 15
+
+    (17) cuerpo_funcion -> LBRACE . opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (18) opcional_declaraciones_locales -> . declaraciones_locales_list
+    (19) opcional_declaraciones_locales -> . empty
+    (20) declaraciones_locales_list -> . declaraciones_locales_list variable_declaracion
+    (21) declaraciones_locales_list -> . variable_declaracion
+    (80) empty -> .
+    (22) variable_declaracion -> . tipo lista_simple_identificadores SEMICOLON
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    RETURN          reduce using rule 80 (empty -> .)
+    WHILE           reduce using rule 80 (empty -> .)
+    IF              reduce using rule 80 (empty -> .)
+    LBRACE          reduce using rule 80 (empty -> .)
+    ID              reduce using rule 80 (empty -> .)
+    LPAREN          reduce using rule 80 (empty -> .)
+    PLUS            reduce using rule 80 (empty -> .)
+    MINUS           reduce using rule 80 (empty -> .)
+    STRING_CONSTANT reduce using rule 80 (empty -> .)
+    INTEGER_CONSTANT reduce using rule 80 (empty -> .)
+    CHAR_CONSTANT   reduce using rule 80 (empty -> .)
+    PRINTF          reduce using rule 80 (empty -> .)
+    SCANF           reduce using rule 80 (empty -> .)
+    RBRACE          reduce using rule 80 (empty -> .)
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+
+    opcional_declaraciones_locales shift and go to state 19
+    declaraciones_locales_list     shift and go to state 20
+    empty                          shift and go to state 21
+    variable_declaracion           shift and go to state 22
+    tipo                           shift and go to state 23
+
+state 16
+
+    (8) encabezado_def_funcion -> tipo_retorno ID . LPAREN def_parametros RPAREN
+    (25) funcion_prototipo_declaracion -> tipo_retorno ID . LPAREN declaracion_parametros RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 24
+
+
+state 17
+
+    (22) variable_declaracion -> tipo lista_simple_identificadores . SEMICOLON
+    (23) lista_simple_identificadores -> lista_simple_identificadores . COMMA ID
+
+    SEMICOLON       shift and go to state 25
+    COMMA           shift and go to state 26
+
+
+state 18
+
+    (24) lista_simple_identificadores -> ID .
+
+    SEMICOLON       reduce using rule 24 (lista_simple_identificadores -> ID .)
+    COMMA           reduce using rule 24 (lista_simple_identificadores -> ID .)
+
+
+state 19
+
+    (17) cuerpo_funcion -> LBRACE opcional_declaraciones_locales . opcional_lista_statements RBRACE
+    (33) opcional_lista_statements -> . statement_list
+    (34) opcional_lista_statements -> . empty
+    (35) statement_list -> . statement_list statement
+    (36) statement_list -> . statement
+    (80) empty -> .
+    (37) statement -> . expression_statement
+    (38) statement -> . return_statement
+    (39) statement -> . while_statement
+    (40) statement -> . if_statement
+    (41) statement -> . block_statement
+    (42) expression_statement -> . expresion SEMICOLON
+    (43) return_statement -> . RETURN SEMICOLON
+    (44) return_statement -> . RETURN expresion SEMICOLON
+    (45) while_statement -> . WHILE LPAREN expresion RPAREN statement
+    (46) if_statement -> . IF LPAREN expresion RPAREN statement
+    (47) if_statement -> . IF LPAREN expresion RPAREN statement ELSE statement
+    (48) block_statement -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RBRACE          reduce using rule 80 (empty -> .)
+    RETURN          shift and go to state 38
+    WHILE           shift and go to state 39
+    IF              shift and go to state 41
+    LBRACE          shift and go to state 27
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    opcional_lista_statements      shift and go to state 28
+    statement_list                 shift and go to state 29
+    empty                          shift and go to state 30
+    statement                      shift and go to state 31
+    expression_statement           shift and go to state 32
+    return_statement               shift and go to state 33
+    while_statement                shift and go to state 34
+    if_statement                   shift and go to state 35
+    block_statement                shift and go to state 36
+    expresion                      shift and go to state 37
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 20
+
+    (18) opcional_declaraciones_locales -> declaraciones_locales_list .
+    (20) declaraciones_locales_list -> declaraciones_locales_list . variable_declaracion
+    (22) variable_declaracion -> . tipo lista_simple_identificadores SEMICOLON
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    RETURN          reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    WHILE           reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    IF              reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    LBRACE          reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    ID              reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    LPAREN          reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    PLUS            reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    MINUS           reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    STRING_CONSTANT reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    INTEGER_CONSTANT reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    CHAR_CONSTANT   reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    PRINTF          reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    SCANF           reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    RBRACE          reduce using rule 18 (opcional_declaraciones_locales -> declaraciones_locales_list .)
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+
+    variable_declaracion           shift and go to state 57
+    tipo                           shift and go to state 23
+
+state 21
+
+    (19) opcional_declaraciones_locales -> empty .
+
+    RETURN          reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    WHILE           reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    IF              reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    LBRACE          reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    ID              reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    LPAREN          reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    PLUS            reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    MINUS           reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    STRING_CONSTANT reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    INTEGER_CONSTANT reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    CHAR_CONSTANT   reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    PRINTF          reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    SCANF           reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+    RBRACE          reduce using rule 19 (opcional_declaraciones_locales -> empty .)
+
+
+state 22
+
+    (21) declaraciones_locales_list -> variable_declaracion .
+
+    INT             reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    CHAR            reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    RETURN          reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    WHILE           reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    IF              reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    LBRACE          reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    ID              reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    LPAREN          reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    PLUS            reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    MINUS           reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    STRING_CONSTANT reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    INTEGER_CONSTANT reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    CHAR_CONSTANT   reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    PRINTF          reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    SCANF           reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+    RBRACE          reduce using rule 21 (declaraciones_locales_list -> variable_declaracion .)
+
+
+state 23
+
+    (22) variable_declaracion -> tipo . lista_simple_identificadores SEMICOLON
+    (23) lista_simple_identificadores -> . lista_simple_identificadores COMMA ID
+    (24) lista_simple_identificadores -> . ID
+
+    ID              shift and go to state 18
+
+    lista_simple_identificadores   shift and go to state 17
+
+state 24
+
+    (8) encabezado_def_funcion -> tipo_retorno ID LPAREN . def_parametros RPAREN
+    (25) funcion_prototipo_declaracion -> tipo_retorno ID LPAREN . declaracion_parametros RPAREN SEMICOLON
+    (13) def_parametros -> . lista_def_parametros
+    (14) def_parametros -> . VOID
+    (26) declaracion_parametros -> . lista_decl_parametros
+    (27) declaracion_parametros -> . lista_decl_parametros COMMA PUNTOS
+    (28) declaracion_parametros -> . VOID
+    (15) lista_def_parametros -> . lista_def_parametros COMMA tipo ID
+    (16) lista_def_parametros -> . tipo ID
+    (29) lista_decl_parametros -> . lista_decl_parametros COMMA especificacion_decl_parametros
+    (30) lista_decl_parametros -> . especificacion_decl_parametros
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+    (31) especificacion_decl_parametros -> . tipo ID
+    (32) especificacion_decl_parametros -> . CHAR TIMES ID
+
+    VOID            shift and go to state 61
+    INT             shift and go to state 11
+    CHAR            shift and go to state 65
+
+    def_parametros                 shift and go to state 58
+    declaracion_parametros         shift and go to state 59
+    lista_def_parametros           shift and go to state 60
+    lista_decl_parametros          shift and go to state 62
+    tipo                           shift and go to state 63
+    especificacion_decl_parametros shift and go to state 64
+
+state 25
+
+    (22) variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .
+
+    VOID            reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    INT             reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    CHAR            reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    $end            reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    RETURN          reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    WHILE           reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    IF              reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    LBRACE          reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    ID              reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    LPAREN          reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    PLUS            reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    MINUS           reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    STRING_CONSTANT reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    INTEGER_CONSTANT reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    CHAR_CONSTANT   reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    PRINTF          reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    SCANF           reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+    RBRACE          reduce using rule 22 (variable_declaracion -> tipo lista_simple_identificadores SEMICOLON .)
+
+
+state 26
+
+    (23) lista_simple_identificadores -> lista_simple_identificadores COMMA . ID
+
+    ID              shift and go to state 66
+
+
+state 27
+
+    (48) block_statement -> LBRACE . opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (18) opcional_declaraciones_locales -> . declaraciones_locales_list
+    (19) opcional_declaraciones_locales -> . empty
+    (20) declaraciones_locales_list -> . declaraciones_locales_list variable_declaracion
+    (21) declaraciones_locales_list -> . variable_declaracion
+    (80) empty -> .
+    (22) variable_declaracion -> . tipo lista_simple_identificadores SEMICOLON
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    RETURN          reduce using rule 80 (empty -> .)
+    WHILE           reduce using rule 80 (empty -> .)
+    IF              reduce using rule 80 (empty -> .)
+    LBRACE          reduce using rule 80 (empty -> .)
+    ID              reduce using rule 80 (empty -> .)
+    LPAREN          reduce using rule 80 (empty -> .)
+    PLUS            reduce using rule 80 (empty -> .)
+    MINUS           reduce using rule 80 (empty -> .)
+    STRING_CONSTANT reduce using rule 80 (empty -> .)
+    INTEGER_CONSTANT reduce using rule 80 (empty -> .)
+    CHAR_CONSTANT   reduce using rule 80 (empty -> .)
+    PRINTF          reduce using rule 80 (empty -> .)
+    SCANF           reduce using rule 80 (empty -> .)
+    RBRACE          reduce using rule 80 (empty -> .)
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+
+    opcional_declaraciones_locales shift and go to state 67
+    declaraciones_locales_list     shift and go to state 20
+    empty                          shift and go to state 21
+    variable_declaracion           shift and go to state 22
+    tipo                           shift and go to state 23
+
+state 28
+
+    (17) cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements . RBRACE
+
+    RBRACE          shift and go to state 68
+
+
+state 29
+
+    (33) opcional_lista_statements -> statement_list .
+    (35) statement_list -> statement_list . statement
+    (37) statement -> . expression_statement
+    (38) statement -> . return_statement
+    (39) statement -> . while_statement
+    (40) statement -> . if_statement
+    (41) statement -> . block_statement
+    (42) expression_statement -> . expresion SEMICOLON
+    (43) return_statement -> . RETURN SEMICOLON
+    (44) return_statement -> . RETURN expresion SEMICOLON
+    (45) while_statement -> . WHILE LPAREN expresion RPAREN statement
+    (46) if_statement -> . IF LPAREN expresion RPAREN statement
+    (47) if_statement -> . IF LPAREN expresion RPAREN statement ELSE statement
+    (48) block_statement -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RBRACE          reduce using rule 33 (opcional_lista_statements -> statement_list .)
+    RETURN          shift and go to state 38
+    WHILE           shift and go to state 39
+    IF              shift and go to state 41
+    LBRACE          shift and go to state 27
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    statement                      shift and go to state 69
+    expression_statement           shift and go to state 32
+    return_statement               shift and go to state 33
+    while_statement                shift and go to state 34
+    if_statement                   shift and go to state 35
+    block_statement                shift and go to state 36
+    expresion                      shift and go to state 37
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 30
+
+    (34) opcional_lista_statements -> empty .
+
+    RBRACE          reduce using rule 34 (opcional_lista_statements -> empty .)
+
+
+state 31
+
+    (36) statement_list -> statement .
+
+    RETURN          reduce using rule 36 (statement_list -> statement .)
+    WHILE           reduce using rule 36 (statement_list -> statement .)
+    IF              reduce using rule 36 (statement_list -> statement .)
+    LBRACE          reduce using rule 36 (statement_list -> statement .)
+    ID              reduce using rule 36 (statement_list -> statement .)
+    LPAREN          reduce using rule 36 (statement_list -> statement .)
+    PLUS            reduce using rule 36 (statement_list -> statement .)
+    MINUS           reduce using rule 36 (statement_list -> statement .)
+    STRING_CONSTANT reduce using rule 36 (statement_list -> statement .)
+    INTEGER_CONSTANT reduce using rule 36 (statement_list -> statement .)
+    CHAR_CONSTANT   reduce using rule 36 (statement_list -> statement .)
+    PRINTF          reduce using rule 36 (statement_list -> statement .)
+    SCANF           reduce using rule 36 (statement_list -> statement .)
+    RBRACE          reduce using rule 36 (statement_list -> statement .)
+
+
+state 32
+
+    (37) statement -> expression_statement .
+
+    RETURN          reduce using rule 37 (statement -> expression_statement .)
+    WHILE           reduce using rule 37 (statement -> expression_statement .)
+    IF              reduce using rule 37 (statement -> expression_statement .)
+    LBRACE          reduce using rule 37 (statement -> expression_statement .)
+    ID              reduce using rule 37 (statement -> expression_statement .)
+    LPAREN          reduce using rule 37 (statement -> expression_statement .)
+    PLUS            reduce using rule 37 (statement -> expression_statement .)
+    MINUS           reduce using rule 37 (statement -> expression_statement .)
+    STRING_CONSTANT reduce using rule 37 (statement -> expression_statement .)
+    INTEGER_CONSTANT reduce using rule 37 (statement -> expression_statement .)
+    CHAR_CONSTANT   reduce using rule 37 (statement -> expression_statement .)
+    PRINTF          reduce using rule 37 (statement -> expression_statement .)
+    SCANF           reduce using rule 37 (statement -> expression_statement .)
+    RBRACE          reduce using rule 37 (statement -> expression_statement .)
+    ELSE            reduce using rule 37 (statement -> expression_statement .)
+
+
+state 33
+
+    (38) statement -> return_statement .
+
+    RETURN          reduce using rule 38 (statement -> return_statement .)
+    WHILE           reduce using rule 38 (statement -> return_statement .)
+    IF              reduce using rule 38 (statement -> return_statement .)
+    LBRACE          reduce using rule 38 (statement -> return_statement .)
+    ID              reduce using rule 38 (statement -> return_statement .)
+    LPAREN          reduce using rule 38 (statement -> return_statement .)
+    PLUS            reduce using rule 38 (statement -> return_statement .)
+    MINUS           reduce using rule 38 (statement -> return_statement .)
+    STRING_CONSTANT reduce using rule 38 (statement -> return_statement .)
+    INTEGER_CONSTANT reduce using rule 38 (statement -> return_statement .)
+    CHAR_CONSTANT   reduce using rule 38 (statement -> return_statement .)
+    PRINTF          reduce using rule 38 (statement -> return_statement .)
+    SCANF           reduce using rule 38 (statement -> return_statement .)
+    RBRACE          reduce using rule 38 (statement -> return_statement .)
+    ELSE            reduce using rule 38 (statement -> return_statement .)
+
+
+state 34
+
+    (39) statement -> while_statement .
+
+    RETURN          reduce using rule 39 (statement -> while_statement .)
+    WHILE           reduce using rule 39 (statement -> while_statement .)
+    IF              reduce using rule 39 (statement -> while_statement .)
+    LBRACE          reduce using rule 39 (statement -> while_statement .)
+    ID              reduce using rule 39 (statement -> while_statement .)
+    LPAREN          reduce using rule 39 (statement -> while_statement .)
+    PLUS            reduce using rule 39 (statement -> while_statement .)
+    MINUS           reduce using rule 39 (statement -> while_statement .)
+    STRING_CONSTANT reduce using rule 39 (statement -> while_statement .)
+    INTEGER_CONSTANT reduce using rule 39 (statement -> while_statement .)
+    CHAR_CONSTANT   reduce using rule 39 (statement -> while_statement .)
+    PRINTF          reduce using rule 39 (statement -> while_statement .)
+    SCANF           reduce using rule 39 (statement -> while_statement .)
+    RBRACE          reduce using rule 39 (statement -> while_statement .)
+    ELSE            reduce using rule 39 (statement -> while_statement .)
+
+
+state 35
+
+    (40) statement -> if_statement .
+
+    RETURN          reduce using rule 40 (statement -> if_statement .)
+    WHILE           reduce using rule 40 (statement -> if_statement .)
+    IF              reduce using rule 40 (statement -> if_statement .)
+    LBRACE          reduce using rule 40 (statement -> if_statement .)
+    ID              reduce using rule 40 (statement -> if_statement .)
+    LPAREN          reduce using rule 40 (statement -> if_statement .)
+    PLUS            reduce using rule 40 (statement -> if_statement .)
+    MINUS           reduce using rule 40 (statement -> if_statement .)
+    STRING_CONSTANT reduce using rule 40 (statement -> if_statement .)
+    INTEGER_CONSTANT reduce using rule 40 (statement -> if_statement .)
+    CHAR_CONSTANT   reduce using rule 40 (statement -> if_statement .)
+    PRINTF          reduce using rule 40 (statement -> if_statement .)
+    SCANF           reduce using rule 40 (statement -> if_statement .)
+    RBRACE          reduce using rule 40 (statement -> if_statement .)
+    ELSE            reduce using rule 40 (statement -> if_statement .)
+
+
+state 36
+
+    (41) statement -> block_statement .
+
+    RETURN          reduce using rule 41 (statement -> block_statement .)
+    WHILE           reduce using rule 41 (statement -> block_statement .)
+    IF              reduce using rule 41 (statement -> block_statement .)
+    LBRACE          reduce using rule 41 (statement -> block_statement .)
+    ID              reduce using rule 41 (statement -> block_statement .)
+    LPAREN          reduce using rule 41 (statement -> block_statement .)
+    PLUS            reduce using rule 41 (statement -> block_statement .)
+    MINUS           reduce using rule 41 (statement -> block_statement .)
+    STRING_CONSTANT reduce using rule 41 (statement -> block_statement .)
+    INTEGER_CONSTANT reduce using rule 41 (statement -> block_statement .)
+    CHAR_CONSTANT   reduce using rule 41 (statement -> block_statement .)
+    PRINTF          reduce using rule 41 (statement -> block_statement .)
+    SCANF           reduce using rule 41 (statement -> block_statement .)
+    RBRACE          reduce using rule 41 (statement -> block_statement .)
+    ELSE            reduce using rule 41 (statement -> block_statement .)
+
+
+state 37
+
+    (42) expression_statement -> expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 70
+
+
+state 38
+
+    (43) return_statement -> RETURN . SEMICOLON
+    (44) return_statement -> RETURN . expresion SEMICOLON
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    SEMICOLON       shift and go to state 71
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 72
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 39
+
+    (45) while_statement -> WHILE . LPAREN expresion RPAREN statement
+
+    LPAREN          shift and go to state 73
+
+
+state 40
+
+    (67) factor -> LPAREN . expresion RPAREN
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 74
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 41
+
+    (46) if_statement -> IF . LPAREN expresion RPAREN statement
+    (47) if_statement -> IF . LPAREN expresion RPAREN statement ELSE statement
+
+    LPAREN          shift and go to state 75
+
+
+state 42
+
+    (49) expresion -> ID . ASSIGN expresion
+    (66) factor -> ID .
+    (72) callable_name -> ID .
+
+    ASSIGN          shift and go to state 76
+    TIMES           reduce using rule 66 (factor -> ID .)
+    DIVIDE          reduce using rule 66 (factor -> ID .)
+    LT              reduce using rule 66 (factor -> ID .)
+    LE              reduce using rule 66 (factor -> ID .)
+    GT              reduce using rule 66 (factor -> ID .)
+    GE              reduce using rule 66 (factor -> ID .)
+    PLUS            reduce using rule 66 (factor -> ID .)
+    MINUS           reduce using rule 66 (factor -> ID .)
+    EQ              reduce using rule 66 (factor -> ID .)
+    NEQ             reduce using rule 66 (factor -> ID .)
+    SEMICOLON       reduce using rule 66 (factor -> ID .)
+    RPAREN          reduce using rule 66 (factor -> ID .)
+    COMMA           reduce using rule 66 (factor -> ID .)
+    LPAREN          reduce using rule 72 (callable_name -> ID .)
+
+
+state 43
+
+    (50) expresion -> expresion_igualdad .
+
+    SEMICOLON       reduce using rule 50 (expresion -> expresion_igualdad .)
+    RPAREN          reduce using rule 50 (expresion -> expresion_igualdad .)
+    COMMA           reduce using rule 50 (expresion -> expresion_igualdad .)
+
+
+state 44
+
+    (51) expresion_igualdad -> expresion_relacional . EQ expresion_relacional
+    (52) expresion_igualdad -> expresion_relacional . NEQ expresion_relacional
+    (53) expresion_igualdad -> expresion_relacional .
+
+    EQ              shift and go to state 77
+    NEQ             shift and go to state 78
+    SEMICOLON       reduce using rule 53 (expresion_igualdad -> expresion_relacional .)
+    RPAREN          reduce using rule 53 (expresion_igualdad -> expresion_relacional .)
+    COMMA           reduce using rule 53 (expresion_igualdad -> expresion_relacional .)
+
+
+state 45
+
+    (54) expresion_relacional -> expresion_simple . LT expresion_simple
+    (55) expresion_relacional -> expresion_simple . LE expresion_simple
+    (56) expresion_relacional -> expresion_simple . GT expresion_simple
+    (57) expresion_relacional -> expresion_simple . GE expresion_simple
+    (58) expresion_relacional -> expresion_simple .
+    (59) expresion_simple -> expresion_simple . PLUS term
+    (60) expresion_simple -> expresion_simple . MINUS term
+
+    LT              shift and go to state 79
+    LE              shift and go to state 80
+    GT              shift and go to state 81
+    GE              shift and go to state 82
+    EQ              reduce using rule 58 (expresion_relacional -> expresion_simple .)
+    NEQ             reduce using rule 58 (expresion_relacional -> expresion_simple .)
+    SEMICOLON       reduce using rule 58 (expresion_relacional -> expresion_simple .)
+    RPAREN          reduce using rule 58 (expresion_relacional -> expresion_simple .)
+    COMMA           reduce using rule 58 (expresion_relacional -> expresion_simple .)
+    PLUS            shift and go to state 83
+    MINUS           shift and go to state 84
+
+
+state 46
+
+    (68) factor -> PLUS . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    factor                         shift and go to state 85
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 47
+
+    (61) expresion_simple -> term .
+    (62) term -> term . TIMES factor
+    (63) term -> term . DIVIDE factor
+
+    LT              reduce using rule 61 (expresion_simple -> term .)
+    LE              reduce using rule 61 (expresion_simple -> term .)
+    GT              reduce using rule 61 (expresion_simple -> term .)
+    GE              reduce using rule 61 (expresion_simple -> term .)
+    PLUS            reduce using rule 61 (expresion_simple -> term .)
+    MINUS           reduce using rule 61 (expresion_simple -> term .)
+    EQ              reduce using rule 61 (expresion_simple -> term .)
+    NEQ             reduce using rule 61 (expresion_simple -> term .)
+    SEMICOLON       reduce using rule 61 (expresion_simple -> term .)
+    RPAREN          reduce using rule 61 (expresion_simple -> term .)
+    COMMA           reduce using rule 61 (expresion_simple -> term .)
+    TIMES           shift and go to state 87
+    DIVIDE          shift and go to state 88
+
+
+state 48
+
+    (69) factor -> MINUS . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    factor                         shift and go to state 89
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 49
+
+    (64) term -> factor .
+
+    TIMES           reduce using rule 64 (term -> factor .)
+    DIVIDE          reduce using rule 64 (term -> factor .)
+    LT              reduce using rule 64 (term -> factor .)
+    LE              reduce using rule 64 (term -> factor .)
+    GT              reduce using rule 64 (term -> factor .)
+    GE              reduce using rule 64 (term -> factor .)
+    PLUS            reduce using rule 64 (term -> factor .)
+    MINUS           reduce using rule 64 (term -> factor .)
+    EQ              reduce using rule 64 (term -> factor .)
+    NEQ             reduce using rule 64 (term -> factor .)
+    SEMICOLON       reduce using rule 64 (term -> factor .)
+    RPAREN          reduce using rule 64 (term -> factor .)
+    COMMA           reduce using rule 64 (term -> factor .)
+
+
+state 50
+
+    (65) factor -> constant .
+
+    TIMES           reduce using rule 65 (factor -> constant .)
+    DIVIDE          reduce using rule 65 (factor -> constant .)
+    LT              reduce using rule 65 (factor -> constant .)
+    LE              reduce using rule 65 (factor -> constant .)
+    GT              reduce using rule 65 (factor -> constant .)
+    GE              reduce using rule 65 (factor -> constant .)
+    PLUS            reduce using rule 65 (factor -> constant .)
+    MINUS           reduce using rule 65 (factor -> constant .)
+    EQ              reduce using rule 65 (factor -> constant .)
+    NEQ             reduce using rule 65 (factor -> constant .)
+    SEMICOLON       reduce using rule 65 (factor -> constant .)
+    RPAREN          reduce using rule 65 (factor -> constant .)
+    COMMA           reduce using rule 65 (factor -> constant .)
+
+
+state 51
+
+    (70) factor -> callable_name . LPAREN lista_expresiones RPAREN
+    (71) factor -> callable_name . LPAREN RPAREN
+
+    LPAREN          shift and go to state 90
+
+
+state 52
+
+    (75) constant -> STRING_CONSTANT .
+
+    TIMES           reduce using rule 75 (constant -> STRING_CONSTANT .)
+    DIVIDE          reduce using rule 75 (constant -> STRING_CONSTANT .)
+    LT              reduce using rule 75 (constant -> STRING_CONSTANT .)
+    LE              reduce using rule 75 (constant -> STRING_CONSTANT .)
+    GT              reduce using rule 75 (constant -> STRING_CONSTANT .)
+    GE              reduce using rule 75 (constant -> STRING_CONSTANT .)
+    PLUS            reduce using rule 75 (constant -> STRING_CONSTANT .)
+    MINUS           reduce using rule 75 (constant -> STRING_CONSTANT .)
+    EQ              reduce using rule 75 (constant -> STRING_CONSTANT .)
+    NEQ             reduce using rule 75 (constant -> STRING_CONSTANT .)
+    SEMICOLON       reduce using rule 75 (constant -> STRING_CONSTANT .)
+    RPAREN          reduce using rule 75 (constant -> STRING_CONSTANT .)
+    COMMA           reduce using rule 75 (constant -> STRING_CONSTANT .)
+
+
+state 53
+
+    (76) constant -> INTEGER_CONSTANT .
+
+    TIMES           reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    DIVIDE          reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    LT              reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    LE              reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    GT              reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    GE              reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    PLUS            reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    MINUS           reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    EQ              reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    NEQ             reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    SEMICOLON       reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    RPAREN          reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+    COMMA           reduce using rule 76 (constant -> INTEGER_CONSTANT .)
+
+
+state 54
+
+    (77) constant -> CHAR_CONSTANT .
+
+    TIMES           reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    DIVIDE          reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    LT              reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    LE              reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    GT              reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    GE              reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    PLUS            reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    MINUS           reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    EQ              reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    NEQ             reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    SEMICOLON       reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    RPAREN          reduce using rule 77 (constant -> CHAR_CONSTANT .)
+    COMMA           reduce using rule 77 (constant -> CHAR_CONSTANT .)
+
+
+state 55
+
+    (73) callable_name -> PRINTF .
+
+    LPAREN          reduce using rule 73 (callable_name -> PRINTF .)
+
+
+state 56
+
+    (74) callable_name -> SCANF .
+
+    LPAREN          reduce using rule 74 (callable_name -> SCANF .)
+
+
+state 57
+
+    (20) declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .
+
+    INT             reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    CHAR            reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    RETURN          reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    WHILE           reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    IF              reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    LBRACE          reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    ID              reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    LPAREN          reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    PLUS            reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    MINUS           reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    STRING_CONSTANT reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    INTEGER_CONSTANT reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    CHAR_CONSTANT   reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    PRINTF          reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    SCANF           reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+    RBRACE          reduce using rule 20 (declaraciones_locales_list -> declaraciones_locales_list variable_declaracion .)
+
+
+state 58
+
+    (8) encabezado_def_funcion -> tipo_retorno ID LPAREN def_parametros . RPAREN
+
+    RPAREN          shift and go to state 91
+
+
+state 59
+
+    (25) funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 92
+
+
+state 60
+
+    (13) def_parametros -> lista_def_parametros .
+    (15) lista_def_parametros -> lista_def_parametros . COMMA tipo ID
+
+    RPAREN          reduce using rule 13 (def_parametros -> lista_def_parametros .)
+    COMMA           shift and go to state 93
+
+
+state 61
+
+    (14) def_parametros -> VOID .
+    (28) declaracion_parametros -> VOID .
+
+  ! reduce/reduce conflict for RPAREN resolved using rule 14 (def_parametros -> VOID .)
+    RPAREN          reduce using rule 14 (def_parametros -> VOID .)
+
+  ! RPAREN          [ reduce using rule 28 (declaracion_parametros -> VOID .) ]
+
+
+state 62
+
+    (26) declaracion_parametros -> lista_decl_parametros .
+    (27) declaracion_parametros -> lista_decl_parametros . COMMA PUNTOS
+    (29) lista_decl_parametros -> lista_decl_parametros . COMMA especificacion_decl_parametros
+
+    RPAREN          reduce using rule 26 (declaracion_parametros -> lista_decl_parametros .)
+    COMMA           shift and go to state 94
+
+
+state 63
+
+    (16) lista_def_parametros -> tipo . ID
+    (31) especificacion_decl_parametros -> tipo . ID
+
+    ID              shift and go to state 95
+
+
+state 64
+
+    (30) lista_decl_parametros -> especificacion_decl_parametros .
+
+    COMMA           reduce using rule 30 (lista_decl_parametros -> especificacion_decl_parametros .)
+    RPAREN          reduce using rule 30 (lista_decl_parametros -> especificacion_decl_parametros .)
+
+
+state 65
+
+    (12) tipo -> CHAR .
+    (32) especificacion_decl_parametros -> CHAR . TIMES ID
+
+    ID              reduce using rule 12 (tipo -> CHAR .)
+    TIMES           shift and go to state 96
+
+
+state 66
+
+    (23) lista_simple_identificadores -> lista_simple_identificadores COMMA ID .
+
+    SEMICOLON       reduce using rule 23 (lista_simple_identificadores -> lista_simple_identificadores COMMA ID .)
+    COMMA           reduce using rule 23 (lista_simple_identificadores -> lista_simple_identificadores COMMA ID .)
+
+
+state 67
+
+    (48) block_statement -> LBRACE opcional_declaraciones_locales . opcional_lista_statements RBRACE
+    (33) opcional_lista_statements -> . statement_list
+    (34) opcional_lista_statements -> . empty
+    (35) statement_list -> . statement_list statement
+    (36) statement_list -> . statement
+    (80) empty -> .
+    (37) statement -> . expression_statement
+    (38) statement -> . return_statement
+    (39) statement -> . while_statement
+    (40) statement -> . if_statement
+    (41) statement -> . block_statement
+    (42) expression_statement -> . expresion SEMICOLON
+    (43) return_statement -> . RETURN SEMICOLON
+    (44) return_statement -> . RETURN expresion SEMICOLON
+    (45) while_statement -> . WHILE LPAREN expresion RPAREN statement
+    (46) if_statement -> . IF LPAREN expresion RPAREN statement
+    (47) if_statement -> . IF LPAREN expresion RPAREN statement ELSE statement
+    (48) block_statement -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RBRACE          reduce using rule 80 (empty -> .)
+    RETURN          shift and go to state 38
+    WHILE           shift and go to state 39
+    IF              shift and go to state 41
+    LBRACE          shift and go to state 27
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    opcional_lista_statements      shift and go to state 97
+    statement_list                 shift and go to state 29
+    empty                          shift and go to state 30
+    statement                      shift and go to state 31
+    expression_statement           shift and go to state 32
+    return_statement               shift and go to state 33
+    while_statement                shift and go to state 34
+    if_statement                   shift and go to state 35
+    block_statement                shift and go to state 36
+    expresion                      shift and go to state 37
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 68
+
+    (17) cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .
+
+    VOID            reduce using rule 17 (cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    INT             reduce using rule 17 (cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    CHAR            reduce using rule 17 (cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    $end            reduce using rule 17 (cuerpo_funcion -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+
+
+state 69
+
+    (35) statement_list -> statement_list statement .
+
+    RETURN          reduce using rule 35 (statement_list -> statement_list statement .)
+    WHILE           reduce using rule 35 (statement_list -> statement_list statement .)
+    IF              reduce using rule 35 (statement_list -> statement_list statement .)
+    LBRACE          reduce using rule 35 (statement_list -> statement_list statement .)
+    ID              reduce using rule 35 (statement_list -> statement_list statement .)
+    LPAREN          reduce using rule 35 (statement_list -> statement_list statement .)
+    PLUS            reduce using rule 35 (statement_list -> statement_list statement .)
+    MINUS           reduce using rule 35 (statement_list -> statement_list statement .)
+    STRING_CONSTANT reduce using rule 35 (statement_list -> statement_list statement .)
+    INTEGER_CONSTANT reduce using rule 35 (statement_list -> statement_list statement .)
+    CHAR_CONSTANT   reduce using rule 35 (statement_list -> statement_list statement .)
+    PRINTF          reduce using rule 35 (statement_list -> statement_list statement .)
+    SCANF           reduce using rule 35 (statement_list -> statement_list statement .)
+    RBRACE          reduce using rule 35 (statement_list -> statement_list statement .)
+
+
+state 70
+
+    (42) expression_statement -> expresion SEMICOLON .
+
+    RETURN          reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    WHILE           reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    IF              reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    LBRACE          reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    ID              reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    LPAREN          reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    PLUS            reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    MINUS           reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    STRING_CONSTANT reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    INTEGER_CONSTANT reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    CHAR_CONSTANT   reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    PRINTF          reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    SCANF           reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    RBRACE          reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+    ELSE            reduce using rule 42 (expression_statement -> expresion SEMICOLON .)
+
+
+state 71
+
+    (43) return_statement -> RETURN SEMICOLON .
+
+    RETURN          reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    WHILE           reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    IF              reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    LBRACE          reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    ID              reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    LPAREN          reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    PLUS            reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    MINUS           reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    STRING_CONSTANT reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    INTEGER_CONSTANT reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    CHAR_CONSTANT   reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    PRINTF          reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    SCANF           reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    RBRACE          reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+    ELSE            reduce using rule 43 (return_statement -> RETURN SEMICOLON .)
+
+
+state 72
+
+    (44) return_statement -> RETURN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 98
+
+
+state 73
+
+    (45) while_statement -> WHILE LPAREN . expresion RPAREN statement
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 99
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 74
+
+    (67) factor -> LPAREN expresion . RPAREN
+
+    RPAREN          shift and go to state 100
+
+
+state 75
+
+    (46) if_statement -> IF LPAREN . expresion RPAREN statement
+    (47) if_statement -> IF LPAREN . expresion RPAREN statement ELSE statement
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 101
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 76
+
+    (49) expresion -> ID ASSIGN . expresion
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 102
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 77
+
+    (51) expresion_igualdad -> expresion_relacional EQ . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion_relacional           shift and go to state 103
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 78
+
+    (52) expresion_igualdad -> expresion_relacional NEQ . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion_relacional           shift and go to state 104
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 79
+
+    (54) expresion_relacional -> expresion_simple LT . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion_simple               shift and go to state 105
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 80
+
+    (55) expresion_relacional -> expresion_simple LE . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion_simple               shift and go to state 106
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 81
+
+    (56) expresion_relacional -> expresion_simple GT . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion_simple               shift and go to state 107
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 82
+
+    (57) expresion_relacional -> expresion_simple GE . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion_simple               shift and go to state 108
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 83
+
+    (59) expresion_simple -> expresion_simple PLUS . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    term                           shift and go to state 109
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 84
+
+    (60) expresion_simple -> expresion_simple MINUS . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    term                           shift and go to state 110
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 85
+
+    (68) factor -> PLUS factor .
+
+    TIMES           reduce using rule 68 (factor -> PLUS factor .)
+    DIVIDE          reduce using rule 68 (factor -> PLUS factor .)
+    LT              reduce using rule 68 (factor -> PLUS factor .)
+    LE              reduce using rule 68 (factor -> PLUS factor .)
+    GT              reduce using rule 68 (factor -> PLUS factor .)
+    GE              reduce using rule 68 (factor -> PLUS factor .)
+    PLUS            reduce using rule 68 (factor -> PLUS factor .)
+    MINUS           reduce using rule 68 (factor -> PLUS factor .)
+    EQ              reduce using rule 68 (factor -> PLUS factor .)
+    NEQ             reduce using rule 68 (factor -> PLUS factor .)
+    SEMICOLON       reduce using rule 68 (factor -> PLUS factor .)
+    RPAREN          reduce using rule 68 (factor -> PLUS factor .)
+    COMMA           reduce using rule 68 (factor -> PLUS factor .)
+
+
+state 86
+
+    (66) factor -> ID .
+    (72) callable_name -> ID .
+
+    TIMES           reduce using rule 66 (factor -> ID .)
+    DIVIDE          reduce using rule 66 (factor -> ID .)
+    LT              reduce using rule 66 (factor -> ID .)
+    LE              reduce using rule 66 (factor -> ID .)
+    GT              reduce using rule 66 (factor -> ID .)
+    GE              reduce using rule 66 (factor -> ID .)
+    PLUS            reduce using rule 66 (factor -> ID .)
+    MINUS           reduce using rule 66 (factor -> ID .)
+    EQ              reduce using rule 66 (factor -> ID .)
+    NEQ             reduce using rule 66 (factor -> ID .)
+    SEMICOLON       reduce using rule 66 (factor -> ID .)
+    RPAREN          reduce using rule 66 (factor -> ID .)
+    COMMA           reduce using rule 66 (factor -> ID .)
+    LPAREN          reduce using rule 72 (callable_name -> ID .)
+
+
+state 87
+
+    (62) term -> term TIMES . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    factor                         shift and go to state 111
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 88
+
+    (63) term -> term DIVIDE . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 86
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    factor                         shift and go to state 112
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 89
+
+    (69) factor -> MINUS factor .
+
+    TIMES           reduce using rule 69 (factor -> MINUS factor .)
+    DIVIDE          reduce using rule 69 (factor -> MINUS factor .)
+    LT              reduce using rule 69 (factor -> MINUS factor .)
+    LE              reduce using rule 69 (factor -> MINUS factor .)
+    GT              reduce using rule 69 (factor -> MINUS factor .)
+    GE              reduce using rule 69 (factor -> MINUS factor .)
+    PLUS            reduce using rule 69 (factor -> MINUS factor .)
+    MINUS           reduce using rule 69 (factor -> MINUS factor .)
+    EQ              reduce using rule 69 (factor -> MINUS factor .)
+    NEQ             reduce using rule 69 (factor -> MINUS factor .)
+    SEMICOLON       reduce using rule 69 (factor -> MINUS factor .)
+    RPAREN          reduce using rule 69 (factor -> MINUS factor .)
+    COMMA           reduce using rule 69 (factor -> MINUS factor .)
+
+
+state 90
+
+    (70) factor -> callable_name LPAREN . lista_expresiones RPAREN
+    (71) factor -> callable_name LPAREN . RPAREN
+    (78) lista_expresiones -> . lista_expresiones COMMA expresion
+    (79) lista_expresiones -> . expresion
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RPAREN          shift and go to state 114
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    callable_name                  shift and go to state 51
+    lista_expresiones              shift and go to state 113
+    expresion                      shift and go to state 115
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+
+state 91
+
+    (8) encabezado_def_funcion -> tipo_retorno ID LPAREN def_parametros RPAREN .
+
+    LBRACE          reduce using rule 8 (encabezado_def_funcion -> tipo_retorno ID LPAREN def_parametros RPAREN .)
+
+
+state 92
+
+    (25) funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 116
+
+
+state 93
+
+    (15) lista_def_parametros -> lista_def_parametros COMMA . tipo ID
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+
+    tipo                           shift and go to state 117
+
+state 94
+
+    (27) declaracion_parametros -> lista_decl_parametros COMMA . PUNTOS
+    (29) lista_decl_parametros -> lista_decl_parametros COMMA . especificacion_decl_parametros
+    (31) especificacion_decl_parametros -> . tipo ID
+    (32) especificacion_decl_parametros -> . CHAR TIMES ID
+    (11) tipo -> . INT
+    (12) tipo -> . CHAR
+
+    PUNTOS          shift and go to state 118
+    CHAR            shift and go to state 121
+    INT             shift and go to state 11
+
+    especificacion_decl_parametros shift and go to state 119
+    tipo                           shift and go to state 120
+
+state 95
+
+    (16) lista_def_parametros -> tipo ID .
+    (31) especificacion_decl_parametros -> tipo ID .
+
+  ! reduce/reduce conflict for COMMA resolved using rule 16 (lista_def_parametros -> tipo ID .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 16 (lista_def_parametros -> tipo ID .)
+    COMMA           reduce using rule 16 (lista_def_parametros -> tipo ID .)
+    RPAREN          reduce using rule 16 (lista_def_parametros -> tipo ID .)
+
+  ! COMMA           [ reduce using rule 31 (especificacion_decl_parametros -> tipo ID .) ]
+  ! RPAREN          [ reduce using rule 31 (especificacion_decl_parametros -> tipo ID .) ]
+
+
+state 96
+
+    (32) especificacion_decl_parametros -> CHAR TIMES . ID
+
+    ID              shift and go to state 122
+
+
+state 97
+
+    (48) block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements . RBRACE
+
+    RBRACE          shift and go to state 123
+
+
+state 98
+
+    (44) return_statement -> RETURN expresion SEMICOLON .
+
+    RETURN          reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    WHILE           reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    IF              reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    LBRACE          reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    ID              reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    LPAREN          reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    PLUS            reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    MINUS           reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    STRING_CONSTANT reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    INTEGER_CONSTANT reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    CHAR_CONSTANT   reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    PRINTF          reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    SCANF           reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    RBRACE          reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+    ELSE            reduce using rule 44 (return_statement -> RETURN expresion SEMICOLON .)
+
+
+state 99
+
+    (45) while_statement -> WHILE LPAREN expresion . RPAREN statement
+
+    RPAREN          shift and go to state 124
+
+
+state 100
+
+    (67) factor -> LPAREN expresion RPAREN .
+
+    TIMES           reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    DIVIDE          reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    LT              reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    LE              reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    GT              reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    GE              reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    PLUS            reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    MINUS           reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    EQ              reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    NEQ             reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    SEMICOLON       reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    RPAREN          reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+    COMMA           reduce using rule 67 (factor -> LPAREN expresion RPAREN .)
+
+
+state 101
+
+    (46) if_statement -> IF LPAREN expresion . RPAREN statement
+    (47) if_statement -> IF LPAREN expresion . RPAREN statement ELSE statement
+
+    RPAREN          shift and go to state 125
+
+
+state 102
+
+    (49) expresion -> ID ASSIGN expresion .
+
+    SEMICOLON       reduce using rule 49 (expresion -> ID ASSIGN expresion .)
+    RPAREN          reduce using rule 49 (expresion -> ID ASSIGN expresion .)
+    COMMA           reduce using rule 49 (expresion -> ID ASSIGN expresion .)
+
+
+state 103
+
+    (51) expresion_igualdad -> expresion_relacional EQ expresion_relacional .
+
+    SEMICOLON       reduce using rule 51 (expresion_igualdad -> expresion_relacional EQ expresion_relacional .)
+    RPAREN          reduce using rule 51 (expresion_igualdad -> expresion_relacional EQ expresion_relacional .)
+    COMMA           reduce using rule 51 (expresion_igualdad -> expresion_relacional EQ expresion_relacional .)
+
+
+state 104
+
+    (52) expresion_igualdad -> expresion_relacional NEQ expresion_relacional .
+
+    SEMICOLON       reduce using rule 52 (expresion_igualdad -> expresion_relacional NEQ expresion_relacional .)
+    RPAREN          reduce using rule 52 (expresion_igualdad -> expresion_relacional NEQ expresion_relacional .)
+    COMMA           reduce using rule 52 (expresion_igualdad -> expresion_relacional NEQ expresion_relacional .)
+
+
+state 105
+
+    (54) expresion_relacional -> expresion_simple LT expresion_simple .
+    (59) expresion_simple -> expresion_simple . PLUS term
+    (60) expresion_simple -> expresion_simple . MINUS term
+
+    EQ              reduce using rule 54 (expresion_relacional -> expresion_simple LT expresion_simple .)
+    NEQ             reduce using rule 54 (expresion_relacional -> expresion_simple LT expresion_simple .)
+    SEMICOLON       reduce using rule 54 (expresion_relacional -> expresion_simple LT expresion_simple .)
+    RPAREN          reduce using rule 54 (expresion_relacional -> expresion_simple LT expresion_simple .)
+    COMMA           reduce using rule 54 (expresion_relacional -> expresion_simple LT expresion_simple .)
+    PLUS            shift and go to state 83
+    MINUS           shift and go to state 84
+
+
+state 106
+
+    (55) expresion_relacional -> expresion_simple LE expresion_simple .
+    (59) expresion_simple -> expresion_simple . PLUS term
+    (60) expresion_simple -> expresion_simple . MINUS term
+
+    EQ              reduce using rule 55 (expresion_relacional -> expresion_simple LE expresion_simple .)
+    NEQ             reduce using rule 55 (expresion_relacional -> expresion_simple LE expresion_simple .)
+    SEMICOLON       reduce using rule 55 (expresion_relacional -> expresion_simple LE expresion_simple .)
+    RPAREN          reduce using rule 55 (expresion_relacional -> expresion_simple LE expresion_simple .)
+    COMMA           reduce using rule 55 (expresion_relacional -> expresion_simple LE expresion_simple .)
+    PLUS            shift and go to state 83
+    MINUS           shift and go to state 84
+
+
+state 107
+
+    (56) expresion_relacional -> expresion_simple GT expresion_simple .
+    (59) expresion_simple -> expresion_simple . PLUS term
+    (60) expresion_simple -> expresion_simple . MINUS term
+
+    EQ              reduce using rule 56 (expresion_relacional -> expresion_simple GT expresion_simple .)
+    NEQ             reduce using rule 56 (expresion_relacional -> expresion_simple GT expresion_simple .)
+    SEMICOLON       reduce using rule 56 (expresion_relacional -> expresion_simple GT expresion_simple .)
+    RPAREN          reduce using rule 56 (expresion_relacional -> expresion_simple GT expresion_simple .)
+    COMMA           reduce using rule 56 (expresion_relacional -> expresion_simple GT expresion_simple .)
+    PLUS            shift and go to state 83
+    MINUS           shift and go to state 84
+
+
+state 108
+
+    (57) expresion_relacional -> expresion_simple GE expresion_simple .
+    (59) expresion_simple -> expresion_simple . PLUS term
+    (60) expresion_simple -> expresion_simple . MINUS term
+
+    EQ              reduce using rule 57 (expresion_relacional -> expresion_simple GE expresion_simple .)
+    NEQ             reduce using rule 57 (expresion_relacional -> expresion_simple GE expresion_simple .)
+    SEMICOLON       reduce using rule 57 (expresion_relacional -> expresion_simple GE expresion_simple .)
+    RPAREN          reduce using rule 57 (expresion_relacional -> expresion_simple GE expresion_simple .)
+    COMMA           reduce using rule 57 (expresion_relacional -> expresion_simple GE expresion_simple .)
+    PLUS            shift and go to state 83
+    MINUS           shift and go to state 84
+
+
+state 109
+
+    (59) expresion_simple -> expresion_simple PLUS term .
+    (62) term -> term . TIMES factor
+    (63) term -> term . DIVIDE factor
+
+    LT              reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    LE              reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    GT              reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    GE              reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    PLUS            reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    MINUS           reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    EQ              reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    NEQ             reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    SEMICOLON       reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    RPAREN          reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    COMMA           reduce using rule 59 (expresion_simple -> expresion_simple PLUS term .)
+    TIMES           shift and go to state 87
+    DIVIDE          shift and go to state 88
+
+
+state 110
+
+    (60) expresion_simple -> expresion_simple MINUS term .
+    (62) term -> term . TIMES factor
+    (63) term -> term . DIVIDE factor
+
+    LT              reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    LE              reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    GT              reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    GE              reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    PLUS            reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    MINUS           reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    EQ              reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    NEQ             reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    SEMICOLON       reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    RPAREN          reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    COMMA           reduce using rule 60 (expresion_simple -> expresion_simple MINUS term .)
+    TIMES           shift and go to state 87
+    DIVIDE          shift and go to state 88
+
+
+state 111
+
+    (62) term -> term TIMES factor .
+
+    TIMES           reduce using rule 62 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 62 (term -> term TIMES factor .)
+    LT              reduce using rule 62 (term -> term TIMES factor .)
+    LE              reduce using rule 62 (term -> term TIMES factor .)
+    GT              reduce using rule 62 (term -> term TIMES factor .)
+    GE              reduce using rule 62 (term -> term TIMES factor .)
+    PLUS            reduce using rule 62 (term -> term TIMES factor .)
+    MINUS           reduce using rule 62 (term -> term TIMES factor .)
+    EQ              reduce using rule 62 (term -> term TIMES factor .)
+    NEQ             reduce using rule 62 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 62 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 62 (term -> term TIMES factor .)
+    COMMA           reduce using rule 62 (term -> term TIMES factor .)
+
+
+state 112
+
+    (63) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 63 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 63 (term -> term DIVIDE factor .)
+    LT              reduce using rule 63 (term -> term DIVIDE factor .)
+    LE              reduce using rule 63 (term -> term DIVIDE factor .)
+    GT              reduce using rule 63 (term -> term DIVIDE factor .)
+    GE              reduce using rule 63 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 63 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 63 (term -> term DIVIDE factor .)
+    EQ              reduce using rule 63 (term -> term DIVIDE factor .)
+    NEQ             reduce using rule 63 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 63 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 63 (term -> term DIVIDE factor .)
+    COMMA           reduce using rule 63 (term -> term DIVIDE factor .)
+
+
+state 113
+
+    (70) factor -> callable_name LPAREN lista_expresiones . RPAREN
+    (78) lista_expresiones -> lista_expresiones . COMMA expresion
+
+    RPAREN          shift and go to state 126
+    COMMA           shift and go to state 127
+
+
+state 114
+
+    (71) factor -> callable_name LPAREN RPAREN .
+
+    TIMES           reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    DIVIDE          reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    LT              reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    LE              reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    GT              reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    GE              reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    PLUS            reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    MINUS           reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    EQ              reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    NEQ             reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    RPAREN          reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+    COMMA           reduce using rule 71 (factor -> callable_name LPAREN RPAREN .)
+
+
+state 115
+
+    (79) lista_expresiones -> expresion .
+
+    RPAREN          reduce using rule 79 (lista_expresiones -> expresion .)
+    COMMA           reduce using rule 79 (lista_expresiones -> expresion .)
+
+
+state 116
+
+    (25) funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON .
+
+    VOID            reduce using rule 25 (funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON .)
+    INT             reduce using rule 25 (funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON .)
+    CHAR            reduce using rule 25 (funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON .)
+    $end            reduce using rule 25 (funcion_prototipo_declaracion -> tipo_retorno ID LPAREN declaracion_parametros RPAREN SEMICOLON .)
+
+
+state 117
+
+    (15) lista_def_parametros -> lista_def_parametros COMMA tipo . ID
+
+    ID              shift and go to state 128
+
+
+state 118
+
+    (27) declaracion_parametros -> lista_decl_parametros COMMA PUNTOS .
+
+    RPAREN          reduce using rule 27 (declaracion_parametros -> lista_decl_parametros COMMA PUNTOS .)
+
+
+state 119
+
+    (29) lista_decl_parametros -> lista_decl_parametros COMMA especificacion_decl_parametros .
+
+    COMMA           reduce using rule 29 (lista_decl_parametros -> lista_decl_parametros COMMA especificacion_decl_parametros .)
+    RPAREN          reduce using rule 29 (lista_decl_parametros -> lista_decl_parametros COMMA especificacion_decl_parametros .)
+
+
+state 120
+
+    (31) especificacion_decl_parametros -> tipo . ID
+
+    ID              shift and go to state 129
+
+
+state 121
+
+    (32) especificacion_decl_parametros -> CHAR . TIMES ID
+    (12) tipo -> CHAR .
+
+    TIMES           shift and go to state 96
+    ID              reduce using rule 12 (tipo -> CHAR .)
+
+
+state 122
+
+    (32) especificacion_decl_parametros -> CHAR TIMES ID .
+
+    COMMA           reduce using rule 32 (especificacion_decl_parametros -> CHAR TIMES ID .)
+    RPAREN          reduce using rule 32 (especificacion_decl_parametros -> CHAR TIMES ID .)
+
+
+state 123
+
+    (48) block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .
+
+    RETURN          reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    WHILE           reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    IF              reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    LBRACE          reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    ID              reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    LPAREN          reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    PLUS            reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    MINUS           reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    STRING_CONSTANT reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    INTEGER_CONSTANT reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    CHAR_CONSTANT   reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    PRINTF          reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    SCANF           reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    RBRACE          reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+    ELSE            reduce using rule 48 (block_statement -> LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE .)
+
+
+state 124
+
+    (45) while_statement -> WHILE LPAREN expresion RPAREN . statement
+    (37) statement -> . expression_statement
+    (38) statement -> . return_statement
+    (39) statement -> . while_statement
+    (40) statement -> . if_statement
+    (41) statement -> . block_statement
+    (42) expression_statement -> . expresion SEMICOLON
+    (43) return_statement -> . RETURN SEMICOLON
+    (44) return_statement -> . RETURN expresion SEMICOLON
+    (45) while_statement -> . WHILE LPAREN expresion RPAREN statement
+    (46) if_statement -> . IF LPAREN expresion RPAREN statement
+    (47) if_statement -> . IF LPAREN expresion RPAREN statement ELSE statement
+    (48) block_statement -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RETURN          shift and go to state 38
+    WHILE           shift and go to state 39
+    IF              shift and go to state 41
+    LBRACE          shift and go to state 27
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 37
+    statement                      shift and go to state 130
+    expression_statement           shift and go to state 32
+    return_statement               shift and go to state 33
+    while_statement                shift and go to state 34
+    if_statement                   shift and go to state 35
+    block_statement                shift and go to state 36
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 125
+
+    (46) if_statement -> IF LPAREN expresion RPAREN . statement
+    (47) if_statement -> IF LPAREN expresion RPAREN . statement ELSE statement
+    (37) statement -> . expression_statement
+    (38) statement -> . return_statement
+    (39) statement -> . while_statement
+    (40) statement -> . if_statement
+    (41) statement -> . block_statement
+    (42) expression_statement -> . expresion SEMICOLON
+    (43) return_statement -> . RETURN SEMICOLON
+    (44) return_statement -> . RETURN expresion SEMICOLON
+    (45) while_statement -> . WHILE LPAREN expresion RPAREN statement
+    (46) if_statement -> . IF LPAREN expresion RPAREN statement
+    (47) if_statement -> . IF LPAREN expresion RPAREN statement ELSE statement
+    (48) block_statement -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RETURN          shift and go to state 38
+    WHILE           shift and go to state 39
+    IF              shift and go to state 41
+    LBRACE          shift and go to state 27
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 37
+    statement                      shift and go to state 131
+    expression_statement           shift and go to state 32
+    return_statement               shift and go to state 33
+    while_statement                shift and go to state 34
+    if_statement                   shift and go to state 35
+    block_statement                shift and go to state 36
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 126
+
+    (70) factor -> callable_name LPAREN lista_expresiones RPAREN .
+
+    TIMES           reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    DIVIDE          reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    LT              reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    LE              reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    GT              reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    GE              reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    PLUS            reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    MINUS           reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    EQ              reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    NEQ             reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    SEMICOLON       reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    RPAREN          reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+    COMMA           reduce using rule 70 (factor -> callable_name LPAREN lista_expresiones RPAREN .)
+
+
+state 127
+
+    (78) lista_expresiones -> lista_expresiones COMMA . expresion
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 132
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 128
+
+    (15) lista_def_parametros -> lista_def_parametros COMMA tipo ID .
+
+    COMMA           reduce using rule 15 (lista_def_parametros -> lista_def_parametros COMMA tipo ID .)
+    RPAREN          reduce using rule 15 (lista_def_parametros -> lista_def_parametros COMMA tipo ID .)
+
+
+state 129
+
+    (31) especificacion_decl_parametros -> tipo ID .
+
+    COMMA           reduce using rule 31 (especificacion_decl_parametros -> tipo ID .)
+    RPAREN          reduce using rule 31 (especificacion_decl_parametros -> tipo ID .)
+
+
+state 130
+
+    (45) while_statement -> WHILE LPAREN expresion RPAREN statement .
+
+    RETURN          reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    WHILE           reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    IF              reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    LBRACE          reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    ID              reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    LPAREN          reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    PLUS            reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    MINUS           reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    STRING_CONSTANT reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    INTEGER_CONSTANT reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    CHAR_CONSTANT   reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    PRINTF          reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    SCANF           reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    RBRACE          reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+    ELSE            reduce using rule 45 (while_statement -> WHILE LPAREN expresion RPAREN statement .)
+
+
+state 131
+
+    (46) if_statement -> IF LPAREN expresion RPAREN statement .
+    (47) if_statement -> IF LPAREN expresion RPAREN statement . ELSE statement
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    RETURN          reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    WHILE           reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    IF              reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    LBRACE          reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    ID              reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    LPAREN          reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    PLUS            reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    MINUS           reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    STRING_CONSTANT reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    INTEGER_CONSTANT reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    CHAR_CONSTANT   reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    PRINTF          reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    SCANF           reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    RBRACE          reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .)
+    ELSE            shift and go to state 133
+
+  ! ELSE            [ reduce using rule 46 (if_statement -> IF LPAREN expresion RPAREN statement .) ]
+
+
+state 132
+
+    (78) lista_expresiones -> lista_expresiones COMMA expresion .
+
+    RPAREN          reduce using rule 78 (lista_expresiones -> lista_expresiones COMMA expresion .)
+    COMMA           reduce using rule 78 (lista_expresiones -> lista_expresiones COMMA expresion .)
+
+
+state 133
+
+    (47) if_statement -> IF LPAREN expresion RPAREN statement ELSE . statement
+    (37) statement -> . expression_statement
+    (38) statement -> . return_statement
+    (39) statement -> . while_statement
+    (40) statement -> . if_statement
+    (41) statement -> . block_statement
+    (42) expression_statement -> . expresion SEMICOLON
+    (43) return_statement -> . RETURN SEMICOLON
+    (44) return_statement -> . RETURN expresion SEMICOLON
+    (45) while_statement -> . WHILE LPAREN expresion RPAREN statement
+    (46) if_statement -> . IF LPAREN expresion RPAREN statement
+    (47) if_statement -> . IF LPAREN expresion RPAREN statement ELSE statement
+    (48) block_statement -> . LBRACE opcional_declaraciones_locales opcional_lista_statements RBRACE
+    (49) expresion -> . ID ASSIGN expresion
+    (50) expresion -> . expresion_igualdad
+    (51) expresion_igualdad -> . expresion_relacional EQ expresion_relacional
+    (52) expresion_igualdad -> . expresion_relacional NEQ expresion_relacional
+    (53) expresion_igualdad -> . expresion_relacional
+    (54) expresion_relacional -> . expresion_simple LT expresion_simple
+    (55) expresion_relacional -> . expresion_simple LE expresion_simple
+    (56) expresion_relacional -> . expresion_simple GT expresion_simple
+    (57) expresion_relacional -> . expresion_simple GE expresion_simple
+    (58) expresion_relacional -> . expresion_simple
+    (59) expresion_simple -> . expresion_simple PLUS term
+    (60) expresion_simple -> . expresion_simple MINUS term
+    (61) expresion_simple -> . term
+    (62) term -> . term TIMES factor
+    (63) term -> . term DIVIDE factor
+    (64) term -> . factor
+    (65) factor -> . constant
+    (66) factor -> . ID
+    (67) factor -> . LPAREN expresion RPAREN
+    (68) factor -> . PLUS factor
+    (69) factor -> . MINUS factor
+    (70) factor -> . callable_name LPAREN lista_expresiones RPAREN
+    (71) factor -> . callable_name LPAREN RPAREN
+    (75) constant -> . STRING_CONSTANT
+    (76) constant -> . INTEGER_CONSTANT
+    (77) constant -> . CHAR_CONSTANT
+    (72) callable_name -> . ID
+    (73) callable_name -> . PRINTF
+    (74) callable_name -> . SCANF
+
+    RETURN          shift and go to state 38
+    WHILE           shift and go to state 39
+    IF              shift and go to state 41
+    LBRACE          shift and go to state 27
+    ID              shift and go to state 42
+    LPAREN          shift and go to state 40
+    PLUS            shift and go to state 46
+    MINUS           shift and go to state 48
+    STRING_CONSTANT shift and go to state 52
+    INTEGER_CONSTANT shift and go to state 53
+    CHAR_CONSTANT   shift and go to state 54
+    PRINTF          shift and go to state 55
+    SCANF           shift and go to state 56
+
+    expresion                      shift and go to state 37
+    statement                      shift and go to state 134
+    expression_statement           shift and go to state 32
+    return_statement               shift and go to state 33
+    while_statement                shift and go to state 34
+    if_statement                   shift and go to state 35
+    block_statement                shift and go to state 36
+    expresion_igualdad             shift and go to state 43
+    expresion_relacional           shift and go to state 44
+    expresion_simple               shift and go to state 45
+    term                           shift and go to state 47
+    factor                         shift and go to state 49
+    constant                       shift and go to state 50
+    callable_name                  shift and go to state 51
+
+state 134
+
+    (47) if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .
+
+    RETURN          reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    WHILE           reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    IF              reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    LBRACE          reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    ID              reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    LPAREN          reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    PLUS            reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    MINUS           reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    STRING_CONSTANT reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    INTEGER_CONSTANT reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    CHAR_CONSTANT   reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    PRINTF          reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    SCANF           reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    RBRACE          reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+    ELSE            reduce using rule 47 (if_statement -> IF LPAREN expresion RPAREN statement ELSE statement .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 9 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 131 resolved as shift
+WARNING: reduce/reduce conflict in state 61 resolved using rule (def_parametros -> VOID)
+WARNING: rejected rule (declaracion_parametros -> VOID) in state 61
+WARNING: reduce/reduce conflict in state 95 resolved using rule (lista_def_parametros -> tipo ID)
+WARNING: rejected rule (especificacion_decl_parametros -> tipo ID) in state 95
+WARNING: Rule (declaracion_parametros -> VOID) is never reduced

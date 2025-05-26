@@ -36,7 +36,7 @@ tokens = [
     # símbolos
     'LPAREN', 'RPAREN',
     'LBRACE', 'RBRACE',
-    'COMMA', 'SEMICOLON', 'PUNTOS'
+    'COMMA', 'SEMICOLON', 'PUNTOS', "COMILLAS"
 ] + list(reserved.values())
 
 
@@ -60,7 +60,7 @@ t_RBRACE   = r'\}'
 t_COMMA    = r','
 t_SEMICOLON= r';'
 t_PUNTOS = r'\.\.\.'  # puntos suspensivos
-
+t_COMILLAS = r'\"'  # comillas dobles
 
 # REGLAS CON CÓDIGO
 

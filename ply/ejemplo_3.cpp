@@ -1,4 +1,3 @@
-Una función recursiva simple  
 /*  
 * Calculo de factorial de un número  
 */  
